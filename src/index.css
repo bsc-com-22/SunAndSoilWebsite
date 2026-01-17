@@ -4,14 +4,14 @@
 
 @layer base {
   :root {
-    --primary: #2E7D32;
-    --primary-light: #4CAF50;
-    --primary-dark: #1B5E20;
-    --solar: #FBC02D;
-    --solar-light: #FDD835;
-    --solar-dark: #F9A825;
-    --earth: #795548;
-    --neutral-light: #F9FAFB;
+    --primary: 46, 125, 50;
+    --primary-light: 76, 175, 80;
+    --primary-dark: 27, 94, 32;
+    --solar: 251, 192, 45;
+    --solar-light: 253, 216, 53;
+    --solar-dark: 249, 168, 37;
+    --earth: 121, 85, 72;
+    --neutral-light: 249, 250, 251;
     --glass-bg: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.3);
   }

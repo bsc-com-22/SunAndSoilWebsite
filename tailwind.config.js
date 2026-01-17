@@ -8,18 +8,18 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#2D5A27',
-          dark: '#1E3D1A',
+          DEFAULT: 'rgb(var(--primary) / <alpha-value>)',
+          light: 'rgb(var(--primary-light) / <alpha-value>)',
+          dark: 'rgb(var(--primary-dark) / <alpha-value>)',
         },
         solar: {
-          DEFAULT: '#F4B400',
-          dark: '#D9A000',
+          DEFAULT: 'rgb(var(--solar) / <alpha-value>)',
+          light: 'rgb(var(--solar-light) / <alpha-value>)',
+          dark: 'rgb(var(--solar-dark) / <alpha-value>)',
         },
-        earth: '#8B4513',
+        earth: 'rgb(var(--earth) / <alpha-value>)',
         neutral: {
-          light: '#F9FAFB',
-          DEFAULT: '#F3F4F6',
-          dark: '#9CA3AF',
+          light: 'rgb(var(--neutral-light) / <alpha-value>)',
         },
       },
       fontFamily: {
