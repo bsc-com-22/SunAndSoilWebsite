@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Globe, Award, ShieldCheck, CheckCircle, ArrowRight } from 'lucide-react';
 
 // Import Assets
@@ -16,7 +17,7 @@ const Partners = () => {
   return (
     <div className="flex flex-col">
       {/* Header */}
-      <section className="relative pt-32 pb-20 bg-primary-dark">
+      <section className="relative pt-40 pb-24 bg-primary-dark overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src={HeroPartnersBg}
@@ -24,7 +25,7 @@ const Partners = () => {
             className="w-full h-full object-cover opacity-30"
           />
         </div>
-        <div className="container-custom relative z-10 text-center">
+        <div className="container relative z-10 text-center">
           <h1 className="text-white mb-6">Partners & <span className="text-solar">Alignment</span></h1>
           <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
             Working together with development partners, government agencies, and private sector organizations for greater impact.
@@ -34,7 +35,7 @@ const Partners = () => {
 
       {/* Alignment Section */}
       <section className="section-padding bg-white">
-        <div className="container-custom">
+        <div className="container">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Alignment</span>
             <h2 className="mb-6">Global & National Goals</h2>
@@ -67,8 +68,8 @@ const Partners = () => {
 
             {/* Vision 2063 & ESG */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-gray-50 p-8 rounded-2xl border border-gray-100">
-                <div className="bg-white p-4 rounded-xl shadow-sm inline-block mb-6">
+              <div className="card">
+                <div className="bg-white p-4 rounded-xl shadow-sm inline-block mb-6 border border-gray-100">
                   <Award className="h-8 w-8 text-solar-dark" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">Malawi Vision 2063</h3>
@@ -81,8 +82,8 @@ const Partners = () => {
                   ))}
                 </ul>
               </div>
-              <div className="bg-gray-50 p-8 rounded-2xl border border-gray-100">
-                <div className="bg-white p-4 rounded-xl shadow-sm inline-block mb-6">
+              <div className="card">
+                <div className="bg-white p-4 rounded-xl shadow-sm inline-block mb-6 border border-gray-100">
                   <ShieldCheck className="h-8 w-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">ESG Alignment</h3>
@@ -102,7 +103,7 @@ const Partners = () => {
 
       {/* Partners Grid */}
       <section className="section-padding bg-white border-t border-gray-100">
-        <div className="container-custom">
+        <div className="container">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Our Network</span>
             <h2 className="mb-6">Valued Partners</h2>
@@ -120,16 +121,16 @@ const Partners = () => {
 
       {/* CTA Section */}
       <section className="section-padding bg-gray-50">
-        <div className="container-custom text-center">
+        <div className="container text-center">
           <div className="max-w-2xl mx-auto">
             <h2 className="mb-6">Join Our Network</h2>
             <p className="text-gray-600 mb-10">
               Partner with us to drive sustainable agricultural transformation in Malawi. Together, we can create lasting impact.
             </p>
-            <button className="btn btn-primary">
+            <Link to="/contact" className="btn btn-primary px-10">
               Become a Partner
               <ArrowRight className="ml-2 h-5 w-5" />
-            </button>
+            </Link>
           </div>
         </div>
       </section>

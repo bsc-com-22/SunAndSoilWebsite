@@ -32,7 +32,7 @@ const Contact = () => {
   return (
     <div className="flex flex-col">
       {/* Header */}
-      <section className="relative pt-32 pb-20 bg-primary-dark">
+      <section className="relative pt-40 pb-24 bg-primary-dark overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src={HeroContactBg}
@@ -40,7 +40,7 @@ const Contact = () => {
             className="w-full h-full object-cover opacity-30"
           />
         </div>
-        <div className="container-custom relative z-10 text-center">
+        <div className="container relative z-10 text-center">
           <h1 className="text-white mb-6">Let's Build <span className="text-solar">Something Together</span></h1>
           <p className="text-lg md:text-xl max-w-3xl mx-auto text-gray-200">
             Whether you're interested in partnership opportunities or have questions about our work — we'd love to hear from you.
@@ -50,7 +50,7 @@ const Contact = () => {
 
       {/* Contact Content */}
       <section className="section-padding bg-white">
-        <div className="container-custom">
+        <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Contact Info */}
             <div className="space-y-8">
@@ -149,7 +149,7 @@ const Contact = () => {
 
       {/* Map Placeholder */}
       <section className="pb-24 bg-white">
-        <div className="container-custom">
+        <div className="container">
           <div className="h-80 bg-gray-50 rounded-3xl border border-gray-100 flex items-center justify-center text-center p-8">
             <div>
               <MapPin className="h-10 w-10 text-primary mx-auto mb-4" />

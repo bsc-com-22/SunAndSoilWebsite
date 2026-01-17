@@ -18,8 +18,8 @@ const Donate = () => {
     return (
         <div className="flex flex-col">
             {/* Header */}
-            <section className="relative pt-32 pb-20 bg-primary-dark text-white text-center">
-                <div className="container-custom relative z-10">
+            <section className="relative pt-40 pb-24 bg-primary-dark text-white text-center overflow-hidden">
+                <div className="container relative z-10">
                     <Heart className="h-12 w-12 mx-auto mb-6 text-solar" />
                     <h1 className="text-white mb-6">Make a Difference Today</h1>
                     <p className="text-lg md:text-xl max-w-2xl mx-auto text-gray-200">
@@ -30,7 +30,7 @@ const Donate = () => {
 
             {/* Donation Form */}
             <section className="section-padding bg-white">
-                <div className="container-custom">
+                <div className="container">
                     <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12">
 
                         {/* Left: Impact Info */}
@@ -53,7 +53,7 @@ const Donate = () => {
                         </div>
 
                         {/* Right: Form */}
-                        <div className="lg:col-span-3 bg-white p-6 md:p-10 rounded-3xl border border-gray-100 shadow-sm">
+                        <div className="lg:col-span-3 card p-6 md:p-10">
                             <div className="flex bg-gray-50 p-1 rounded-xl mb-8">
                                 <button
                                     onClick={() => setDonationType('one-time')}
@@ -122,7 +122,7 @@ const Donate = () => {
 
             {/* Why Support */}
             <section className="section-padding bg-gray-50">
-                <div className="container-custom">
+                <div className="container">
                     <h2 className="text-2xl font-bold text-center mb-12">Why Your Support Matters</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
@@ -131,7 +131,7 @@ const Donate = () => {
                             { title: "Sustainability", desc: "Long-term solutions." },
                             { title: "Proven Results", desc: "Measurable change." }
                         ].map((item, i) => (
-                            <div key={i} className="bg-white p-6 rounded-2xl border border-gray-100">
+                            <div key={i} className="card p-6">
                                 <CheckCircle className="h-5 w-5 text-primary mb-4" />
                                 <h4 className="font-bold text-sm mb-2">{item.title}</h4>
                                 <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
