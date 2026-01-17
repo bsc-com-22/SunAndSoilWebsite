@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Sun, Heart, Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
+import { Menu, X, Heart, Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin, ChevronRight } from 'lucide-react';
 import clsx from 'clsx';
 
 // Import Logo
@@ -8,14 +8,21 @@ import Logo from '../../assets/SUN AND SOIL LOGO.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Our Programs', path: '/programs' },
-    { name: 'Projects & Impact', path: '/projects' },
-    { name: 'Our Team', path: '/team' },
+    { name: 'About', path: '/about' },
+    { name: 'Programs', path: '/programs' },
+    { name: 'Projects', path: '/projects' },
+    { name: 'Team', path: '/team' },
     { name: 'Partners', path: '/partners' },
     { name: 'Contact', path: '/contact' },
   ];
@@ -26,220 +33,178 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-24">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 group">
-            <div className="h-16 w-16 flex items-center justify-center overflow-hidden">
-              <img
-                src={Logo}
-                alt="Sun & Soil Foundation"
-                className="h-full w-full object-contain transform group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xl font-bold text-primary leading-none tracking-tight">Sun & Soil</span>
-              <span className="text-[10px] text-earth font-bold tracking-[0.2em] uppercase mt-1">FOUNDATION</span>
-            </div>
-          </Link>
-
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={clsx(
-                  "text-sm font-bold transition-all duration-200 hover:text-primary relative py-2",
-                  isActive(link.path)
-                    ? "text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary"
-                    : "text-gray-600 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary hover:after:w-full after:transition-all"
-                )}
-              >
-                {link.name}
-              </Link>
-            ))}
+    <nav
+      className={clsx(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        scrolled || isOpen ? "bg-white shadow-sm py-3" : "bg-transparent py-5"
+      )}
+    >
+      <div className="container flex justify-between items-center">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2">
+          <img src={Logo} alt="Sun & Soil" className="h-10 w-auto object-contain" />
+          <div className="flex flex-col">
+            <span className={clsx("font-bold text-lg leading-none", scrolled || isOpen ? "text-primary" : "text-white md:text-primary")}>Sun & Soil</span>
+            <span className={clsx("text-[8px] font-bold tracking-widest uppercase", scrolled || isOpen ? "text-gray-500" : "text-white/80 md:text-gray-500")}>Foundation</span>
           </div>
+        </Link>
 
-          {/* Donate Button */}
-          <div className="hidden md:block">
+        {/* Desktop Menu */}
+        <div className="hidden lg:flex items-center gap-8">
+          {navLinks.map((link) => (
             <Link
-              to="/donate"
-              className="bg-solar hover:bg-solar-dark text-primary-dark font-bold py-3 px-8 rounded-full transition-all duration-300 flex items-center shadow-lg hover:shadow-solar/20 transform hover:-translate-y-0.5"
+              key={link.name}
+              to={link.path}
+              className={clsx(
+                "text-sm font-medium transition-colors hover:text-primary",
+                isActive(link.path)
+                  ? "text-primary"
+                  : scrolled ? "text-gray-600" : "text-white md:text-gray-600"
+              )}
             >
-              <Heart className="h-4 w-4 mr-2 fill-current" />
-              Donate
+              {link.name}
             </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-600 hover:text-primary focus:outline-none p-2 rounded-xl bg-neutral-light"
-            >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
+          ))}
+          <Link to="/donate" className="btn btn-solar px-6 py-2 text-sm">
+            Donate
+          </Link>
         </div>
+
+        {/* Mobile Toggle */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className={clsx(
+            "lg:hidden p-2 rounded-lg transition-colors",
+            scrolled || isOpen ? "text-gray-900" : "text-white"
+          )}
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
       </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 py-8 shadow-2xl absolute w-full left-0 animate-in slide-in-from-top duration-300">
-          <div className="container mx-auto px-4 flex flex-col space-y-4">
+      {/* Mobile Menu Overlay */}
+      <div
+        className={clsx(
+          "fixed inset-0 bg-white z-40 lg:hidden transition-transform duration-300 ease-in-out transform",
+          isOpen ? "translate-x-0" : "translate-x-full"
+        )}
+      >
+        <div className="flex flex-col p-8 h-full">
+          <div className="flex justify-between items-center mb-12">
+            <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
+              <img src={Logo} alt="Sun & Soil" className="h-10 w-auto" />
+              <span className="font-bold text-lg text-primary">Sun & Soil</span>
+            </Link>
+            <button onClick={() => setIsOpen(false)} className="p-2 text-gray-900">
+              <X className="h-6 w-6" />
+            </button>
+          </div>
+
+          <div className="flex flex-col space-y-6">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
                 className={clsx(
-                  "text-lg font-bold py-4 px-6 rounded-2xl transition-all duration-200",
-                  isActive(link.path)
-                    ? "text-primary bg-primary/5 border-l-4 border-primary"
-                    : "text-gray-600 hover:text-primary hover:bg-gray-50"
+                  "flex justify-between items-center py-2 text-2xl font-bold",
+                  isActive(link.path) ? "text-primary" : "text-gray-900"
                 )}
               >
                 {link.name}
+                <ChevronRight className="h-6 w-6 text-gray-300" />
               </Link>
             ))}
             <Link
               to="/donate"
               onClick={() => setIsOpen(false)}
-              className="bg-solar text-primary-dark font-bold py-4 px-6 rounded-2xl text-center flex items-center justify-center mt-6 shadow-xl"
+              className="btn btn-primary mt-8 w-full py-4 text-lg"
             >
-              <Heart className="h-5 w-5 mr-2 fill-current" />
               Donate Now
             </Link>
           </div>
         </div>
-      )}
+      </div>
     </nav>
   );
 };
 
 const Footer = () => {
   return (
-    <footer className="bg-primary-dark text-white pt-24 pb-12 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary opacity-10 rounded-full -mr-48 -mt-48"></div>
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-solar opacity-5 rounded-full -ml-32 -mb-32"></div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-          {/* Brand Info */}
-          <div className="space-y-8">
-            <Link to="/" className="flex items-center space-x-3 group">
-              <div className="h-16 w-16 bg-white p-2 rounded-2xl flex items-center justify-center overflow-hidden">
-                <img
-                  src={Logo}
-                  alt="Sun & Soil Foundation"
-                  className="h-full w-full object-contain"
-                />
-              </div>
+    <footer className="bg-gray-50 border-t border-gray-100 pt-16 pb-8">
+      <div className="container">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          <div className="space-y-6">
+            <Link to="/" className="flex items-center gap-3">
+              <img src={Logo} alt="Sun & Soil" className="h-10 w-auto" />
               <div className="flex flex-col">
-                <span className="text-xl font-bold text-white leading-none tracking-tight">Sun & Soil</span>
-                <span className="text-[10px] text-solar font-bold tracking-[0.2em] uppercase mt-1">FOUNDATION</span>
+                <span className="font-bold text-primary leading-none">Sun & Soil</span>
+                <span className="text-[10px] text-gray-500 font-bold tracking-widest uppercase">Foundation</span>
               </div>
             </Link>
-            <p className="text-gray-300 text-sm leading-relaxed max-w-xs">
-              Empowering Malawian communities through solar-powered irrigation, climate-smart agriculture, and sustainable rural livelihoods.
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Empowering Malawian communities through solar-powered irrigation and sustainable agriculture.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="bg-white/10 p-3 rounded-xl hover:bg-solar hover:text-primary-dark transition-all duration-300">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="bg-white/10 p-3 rounded-xl hover:bg-solar hover:text-primary-dark transition-all duration-300">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="bg-white/10 p-3 rounded-xl hover:bg-solar hover:text-primary-dark transition-all duration-300">
-                <Linkedin className="h-5 w-5" />
-              </a>
-              <a href="#" className="bg-white/10 p-3 rounded-xl hover:bg-solar hover:text-primary-dark transition-all duration-300">
-                <Instagram className="h-5 w-5" />
-              </a>
+            <div className="flex gap-4">
+              {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => (
+                <a key={i} href="#" className="text-gray-400 hover:text-primary transition-colors">
+                  <Icon className="h-5 w-5" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-bold mb-8 relative inline-block">
-              Quick Links
-              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-solar"></span>
-            </h3>
-            <ul className="space-y-4 text-sm text-gray-300">
-              <li><Link to="/about" className="hover:text-solar transition-colors flex items-center group"><ArrowRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-all" /> About Us</Link></li>
-              <li><Link to="/programs" className="hover:text-solar transition-colors flex items-center group"><ArrowRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-all" /> Our Programs</Link></li>
-              <li><Link to="/projects" className="hover:text-solar transition-colors flex items-center group"><ArrowRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-all" /> Projects & Impact</Link></li>
-              <li><Link to="/team" className="hover:text-solar transition-colors flex items-center group"><ArrowRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-all" /> Our Team</Link></li>
-              <li><Link to="/partners" className="hover:text-solar transition-colors flex items-center group"><ArrowRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-all" /> Partners</Link></li>
-              <li><Link to="/donate" className="text-solar font-bold hover:underline flex items-center group"><ArrowRight className="h-3 w-3 mr-2 opacity-0 group-hover:opacity-100 transition-all" /> Donate</Link></li>
+            <h4 className="font-bold text-gray-900 mb-6">Quick Links</h4>
+            <ul className="space-y-3 text-sm">
+              {['About', 'Programs', 'Projects', 'Team', 'Partners'].map((item) => (
+                <li key={item}>
+                  <Link to={`/${item.toLowerCase()}`} className="text-gray-600 hover:text-primary transition-colors">
+                    {item}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Programs */}
           <div>
-            <h3 className="text-lg font-bold mb-8 relative inline-block">
-              Our Focus
-              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-solar"></span>
-            </h3>
-            <ul className="space-y-4 text-sm text-gray-300">
-              <li><Link to="/programs" className="hover:text-solar transition-colors">Solar Irrigation</Link></li>
-              <li><Link to="/programs" className="hover:text-solar transition-colors">Climate-Smart Agriculture</Link></li>
-              <li><Link to="/programs" className="hover:text-solar transition-colors">Women Empowerment</Link></li>
-              <li><Link to="/programs" className="hover:text-solar transition-colors">Youth Capacity Building</Link></li>
-              <li><Link to="/programs" className="hover:text-solar transition-colors">Rural Livelihoods</Link></li>
+            <h4 className="font-bold text-gray-900 mb-6">Our Focus</h4>
+            <ul className="space-y-3 text-sm text-gray-600">
+              <li>Solar Irrigation</li>
+              <li>Climate-Smart Ag</li>
+              <li>Women Empowerment</li>
+              <li>Youth Capacity</li>
             </ul>
           </div>
 
-          {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-bold mb-8 relative inline-block">
-              Contact Us
-              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-solar"></span>
-            </h3>
-            <ul className="space-y-6 text-sm text-gray-300">
-              <li className="flex items-start">
-                <div className="bg-white/10 p-2 rounded-lg mr-4 mt-0.5">
-                  <MapPin className="h-5 w-5 text-solar flex-shrink-0" />
-                </div>
-                <span>Kaphiri, Area 36<br />Lilongwe, Malawi</span>
+            <h4 className="font-bold text-gray-900 mb-6">Contact</h4>
+            <ul className="space-y-4 text-sm text-gray-600">
+              <li className="flex gap-3">
+                <MapPin className="h-5 w-5 text-primary shrink-0" />
+                <span>Lilongwe, Malawi</span>
               </li>
-              <li className="flex items-center">
-                <div className="bg-white/10 p-2 rounded-lg mr-4">
-                  <Phone className="h-5 w-5 text-solar flex-shrink-0" />
-                </div>
+              <li className="flex gap-3">
+                <Phone className="h-5 w-5 text-primary shrink-0" />
                 <span>+265 995 856 237</span>
               </li>
-              <li className="flex items-center">
-                <div className="bg-white/10 p-2 rounded-lg mr-4">
-                  <Mail className="h-5 w-5 text-solar flex-shrink-0" />
-                </div>
+              <li className="flex gap-3">
+                <Mail className="h-5 w-5 text-primary shrink-0" />
                 <span>sunandsoilfoundation@gmail.com</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-white/10 pt-12 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Sun & Soil Foundation. All rights reserved.</p>
-          <div className="flex space-x-8 mt-6 md:mt-0">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
+        <div className="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+          <p>&copy; {new Date().getFullYear()} Sun & Soil Foundation.</p>
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-primary">Privacy</a>
+            <a href="#" className="hover:text-primary">Terms</a>
           </div>
-        </div>
-        <div className="mt-8 text-center border-t border-white/5 pt-8">
-          <p className="text-[10px] text-gray-500 tracking-widest uppercase">
-            Developed by{' '}
-            <a
-              href="https://nyasacreatives.netlify.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-solar hover:text-white transition-colors font-bold"
-            >
-              Nyasa Creatives
-            </a>
+          <p className="uppercase tracking-widest text-[10px]">
+            By <a href="https://nyasacreatives.netlify.app/" className="font-bold text-primary">Nyasa Creatives</a>
           </p>
         </div>
       </div>
@@ -249,7 +214,7 @@ const Footer = () => {
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex flex-col min-h-screen font-sans text-gray-800 bg-neutral-light">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-grow">
         {children}
