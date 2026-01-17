@@ -57,7 +57,7 @@ const Projects = () => {
   return (
     <div className="flex flex-col">
       {/* Header */}
-      <section className="relative pt-32 pb-20 bg-primary-dark">
+      <section className="relative pt-40 pb-24 bg-primary-dark overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src={HeroProjectsBg}
@@ -65,7 +65,7 @@ const Projects = () => {
             className="w-full h-full object-cover opacity-30"
           />
         </div>
-        <div className="container-custom relative z-10 text-center">
+        <div className="container relative z-10 text-center">
           <h1 className="text-white mb-6">Projects & <span className="text-solar">Impact</span></h1>
           <p className="text-lg md:text-xl max-w-3xl mx-auto text-gray-200">
             Real impact, measurable change across Malawi through sustainable community-led solutions.
@@ -75,7 +75,7 @@ const Projects = () => {
 
       {/* Stats */}
       <section className="py-12 bg-white border-b border-gray-100">
-        <div className="container-custom">
+        <div className="container">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="flex flex-col items-center text-center">
@@ -92,7 +92,7 @@ const Projects = () => {
 
       {/* Featured Projects */}
       <section className="section-padding bg-white">
-        <div className="container-custom">
+        <div className="container">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Real Impact</span>
             <h2 className="mb-6">Featured Projects</h2>
@@ -103,31 +103,29 @@ const Projects = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {solarProjects.map((project, index) => (
-              <div key={index} className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:border-primary/20 transition-colors group">
-                <div className="aspect-[4/3] overflow-hidden">
+              <div key={index} className="card overflow-hidden group">
+                <div className="aspect-[4/3] overflow-hidden -m-6 mb-6">
                   <img
                     src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <div className="p-8">
-                  <div className="flex items-center gap-2 text-primary font-bold text-[10px] uppercase tracking-widest mb-3">
-                    <MapPin className="h-3 w-3" />
-                    {project.location}
-                  </div>
-                  <h3 className="text-xl font-bold mb-4">{project.title}</h3>
-                  <p className="text-gray-600 text-sm mb-6 leading-relaxed">{project.description}</p>
+                <div className="flex items-center gap-2 text-primary font-bold text-[10px] uppercase tracking-widest mb-3">
+                  <MapPin className="h-3 w-3" />
+                  {project.location}
+                </div>
+                <h3 className="text-xl font-bold mb-4">{project.title}</h3>
+                <p className="text-gray-600 text-sm mb-6 leading-relaxed">{project.description}</p>
 
-                  <div className="space-y-2 pt-6 border-t border-gray-50">
-                    <div className="flex justify-between text-xs">
-                      <span className="text-gray-500">System:</span>
-                      <span className="font-bold">{project.system}</span>
-                    </div>
-                    <div className="flex justify-between text-xs">
-                      <span className="text-gray-500">Crops:</span>
-                      <span className="font-bold">{project.crops}</span>
-                    </div>
+                <div className="space-y-2 pt-6 border-t border-gray-50">
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-500">System:</span>
+                    <span className="font-bold">{project.system}</span>
+                  </div>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-500">Crops:</span>
+                    <span className="font-bold">{project.crops}</span>
                   </div>
                 </div>
               </div>
@@ -138,7 +136,7 @@ const Projects = () => {
 
       {/* Success Story */}
       <section className="section-padding bg-gray-50">
-        <div className="container-custom">
+        <div className="container">
           <div className="max-w-4xl mx-auto bg-white p-8 md:p-16 rounded-3xl border border-gray-100 shadow-sm">
             <div className="flex flex-col md:flex-row items-center gap-12">
               <div className="shrink-0">

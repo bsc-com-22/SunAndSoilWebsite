@@ -46,7 +46,7 @@ const Team = () => {
   return (
     <div className="flex flex-col">
       {/* Header */}
-      <section className="relative pt-32 pb-20 bg-primary-dark">
+      <section className="relative pt-40 pb-24 bg-primary-dark overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src={HeroTeamBg}
@@ -54,7 +54,7 @@ const Team = () => {
             className="w-full h-full object-cover opacity-30"
           />
         </div>
-        <div className="container-custom relative z-10 text-center">
+        <div className="container relative z-10 text-center">
           <h1 className="text-white mb-6">Meet Our <span className="text-solar">Team</span></h1>
           <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
             A dedicated group of professionals passionate about sustainable development and community empowerment in Malawi.
@@ -64,7 +64,7 @@ const Team = () => {
 
       {/* Team Grid */}
       <section className="section-padding bg-white">
-        <div className="container-custom">
+        <div className="container">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             {teamData.map((member, index) => (
               <div key={index} className="group">
@@ -96,13 +96,13 @@ const Team = () => {
 
       {/* Join Us CTA */}
       <section className="section-padding bg-gray-50">
-        <div className="container-custom text-center">
+        <div className="container text-center">
           <div className="max-w-2xl mx-auto">
             <h2 className="mb-6">Join Our Mission</h2>
             <p className="text-gray-600 mb-10">
               We are always looking for passionate individuals to join our team. Whether as a volunteer, intern, or professional, your skills can help power Malawi's food future.
             </p>
-            <button className="btn btn-primary">Get Involved</button>
+            <Link to="/contact" className="btn btn-primary px-10">Get Involved</Link>
           </div>
         </div>
       </section>
